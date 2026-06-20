@@ -614,3 +614,29 @@ body{
     transform:rotate(-180deg);
     transition: calc(0.25s);
 }
+
+.archive-card{
+    position:relative;
+}
+
+.click-counter{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    background:rgba(204,252,255,.08);
+
+    border:1px solid rgba(204,252,255,.18);
+
+    color:#ccfcff;
+
+    border-radius:999px;
+
+    padding:4px 10px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    backdrop-filter:blur(10px);
+}
