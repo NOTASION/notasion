@@ -57,7 +57,7 @@
         <img src="images/notification.png">
 
         <span class="notification-badge">
-            2
+            1
         </span>
 
     </button>
@@ -68,10 +68,6 @@
             اعلانات
         </div>
 
-        <div class="notification-item">
-            جزوات مربوط به مکانیک نحلیلی 2 برای میانترم دوم، آپلود شدند.
-        </div>
-        
         <div class="notification-item">
             جزوه جلسه 27 اردیبهشت نجوم که رکورد کلاسش در دسترس نیست، به لطف یکی از دوستان در قسمت مربوط آپلود شد.
         </div>
@@ -149,7 +145,9 @@
         <!--chest-->
         <a href="https://drive.google.com/drive/folders/1thTpd1JjyPPEjZ7rJFPkWs52751uJg_v?usp=sharing"
         target="_blank"
-        class="archive-card">
+        class="archive-card"
+        data-id="chest">
+        <div class="click-counter">0</div>
         
         <img src="images/gain.png" alt="icon">
 
@@ -163,7 +161,9 @@
         <!--Astro-->
         <a href="https://drive.google.com/drive/folders/14VU86aijr5k6SbLIyhoUbMtiwuBIwSBI?usp=sharing"
            target="_blank"
-           class="archive-card">
+           class="archive-card"
+           data-id="astro">
+           <div class="click-counter">0</div>
 
             <img src="images/Astro.png" alt="icon">
 
@@ -177,7 +177,9 @@
         <!--Mechanic2-->
         <a href="https://drive.google.com/drive/folders/1mdd6f-4qdVEKMuhxv0JI52kArOToboSo"
            target="_blank"
-           class="archive-card">
+           class="archive-card"
+           data-id="mechanic">
+           <div class="click-counter">0</div>
 
             <img src="images/Mechanic.png" alt="icon">
 
@@ -191,7 +193,9 @@
         <!--Rizik2-->
         <a href="https://drive.google.com/drive/folders/1E7SiwwCEmmBOWm2befW1NNcoH05-3yC0?usp=drive_link"
            target="_blank"
-           class="archive-card">
+           class="archive-card"
+           data-id="rizik">
+           <div class="click-counter">0</div>
 
             <img src="images/Rizik.png" alt="icon">
 
@@ -205,7 +209,9 @@
         <!--Electro1-->
         <a href="https://drive.google.com/drive/folders/1TnFZk7r8-v2IOv1bIt9zlPHAi9fsrGsf?usp=sharing"
            target="_blank"
-           class="archive-card">
+           class="archive-card"
+           data-id="electro">
+           <div class="click-counter">0</div>
 
             <img src="images/Elerctro.png" alt="icon">
 
@@ -219,7 +225,9 @@
         <!--Chemistry lab-->
         <a href="https://drive.google.com/drive/folders/19m1UQRH58khFKt_j_5E9MGcwhPNMhHgF?usp=drive_link"
            target="_blank"
-           class="archive-card">
+           class="archive-card"
+           data-id="c lab">
+           <div class="click-counter">0</div>
 
             <img src="images/Chemistry.png" alt="icon">
 
@@ -232,6 +240,8 @@
 
 
     </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 const toggleBtn = document.getElementById("contactToggle");
@@ -303,11 +313,84 @@ noteToggle.addEventListener("click", () => {
     noteArrow.classList.toggle("rotate");
 
 });
+
+const SUPABASE_URL = "https://yzfqpvrzfeayzbavaqvj.supabase.co/rest/v1/";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6ZnFwdnJ6ZmVheXpiYXZhcXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NDU2ODIsImV4cCI6MjA5NzUyMTY4Mn0.nme5EFtPBrfeOhFNyQDn9Z8JUAjNpwsLbGzGOBbH_Xw";
+
+const supabaseClient =
+supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+async function loadCounters(){
+
+    const { data } =
+    await supabaseClient
+    .from("page_clicks")
+    .select("*");
+
+    data.forEach(item => {
+
+        const card =
+        document.querySelector(
+            `[data-id="${item.id}"]`
+        );
+
+        if(card){
+
+            card.querySelector(
+                ".click-counter"
+            ).innerText =
+            `🔥 ${item.clicks}`;
+
+        }
+
+    });
+}
+
+async function increaseCounter(id){
+
+    const { data } =
+    await supabaseClient
+    .from("page_clicks")
+    .select("clicks")
+    .eq("id", id)
+    .single();
+
+    await supabaseClient
+    .from("page_clicks")
+    .update({
+        clicks:data.clicks + 1
+    })
+    .eq("id", id);
+}
+
+document
+.querySelectorAll(".archive-card")
+.forEach(card => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            increaseCounter(
+                card.dataset.id
+            );
+
+        }
+    );
+
+});
+
+loadCounters();
 </script>
 
 <footer class="site-footer">
     Designed by HK
 </footer>
+
+
 
 </body>
 </html>
