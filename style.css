@@ -621,22 +621,25 @@ body{
 
 .click-counter{
     position:absolute;
-    top:10px;
+    bottom:10px;
     right:10px;
 
     background:rgba(204,252,255,.08);
 
     border:1px solid rgba(204,252,255,.18);
 
-    color:#ccfcff;
+    color:#defcff;
 
     border-radius:999px;
 
-    padding:4px 10px;
+    padding:2px 8px;
 
     font-size:12px;
 
     font-weight:600;
 
     backdrop-filter:blur(10px);
+}
+.click-icon{
+    font-size:16px;
 }
