@@ -221,7 +221,7 @@
 
             <div class="card-content">
                 <h2>Electromagnetic I</h2>
-                <span>رکورد کلاس‌ها + جزوات</span>
+                <span>جزوات</span>
             </div>
 
         </a>
@@ -345,8 +345,8 @@ async function loadCounters(){
 
             card.querySelector(
                 ".click-counter"
-            ).innerText =
-            `🔥 ${item.clicks}`;
+            ).innerHTML =
+            `<span class="click-icon">🖱</span> ${item.clicks}`;
 
         }
 
