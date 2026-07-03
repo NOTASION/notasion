@@ -62,13 +62,14 @@ body{
     padding:18px;
 
     display:flex;
-    align-items:center;
-    gap:15px;
+    flex-direction: column;
+    
 
     text-decoration:none;
     color:white;
 
     transition:.3s;
+    min-height: 220px;
 }
 
 .archive-card:hover{
@@ -84,6 +85,40 @@ body{
     width:80px;
     height:80px;
     object-fit:contain;
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.card-divider{
+    border:none;
+    border-top:1px solid #303847;
+
+    width:95%;
+
+    margin:18px auto 14px;
+}
+
+.card-news{
+    font-size:12px;
+    color:#acb3bf;
+    text-align: right;
+    direction: rtl;
+    line-height:1.2;
+    
+    margin-right: 10px;
+}
+
+.card-news p{
+    margin-bottom:6px;
+    line-height: 1.2;
+}
+
+.card-news p:last-child{
+    margin-bottom:0;
 }
 
 .card-content h2{
@@ -207,6 +242,43 @@ body{
 
     text-align: right;
     direction:rtl;
+
+    cursor:pointer;
+    user-select:none;
+}
+
+#toast{
+
+    position:fixed;
+
+    bottom:25px;
+    left:50%;
+
+    transform:translateX(-50%) translateY(30px);
+
+    background:#171b24;
+    color:#bcf4ff;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    border:1px solid #bcf4ff;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:99999;
+}
+
+#toast.show{
+
+    opacity:1;
+
+    transform:translateX(-50%) translateY(0);
+
 }
 
 .contact-item:hover{
@@ -622,7 +694,7 @@ body{
 .click-counter{
     position:absolute;
     bottom:10px;
-    right:10px;
+    left:10px;
 
     background:rgba(204,252,255,.08);
 
@@ -640,6 +712,7 @@ body{
 
     backdrop-filter:blur(10px);
 }
+
 .click-icon{
     font-size:16px;
 }
