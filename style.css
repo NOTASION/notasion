@@ -400,6 +400,8 @@ body{
 
     padding:15px;
 
+    direction:rtl;
+
     opacity:0;
     visibility:hidden;
 
